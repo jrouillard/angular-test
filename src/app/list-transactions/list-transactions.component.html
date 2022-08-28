@@ -1,0 +1,42 @@
+<div class="table-header">
+    <div class="table-filters">
+        <nz-input-group nzAddOnBeforeIcon="search" class="search-box">
+            <input type="text" nz-input placeholder="Search ID" (input)="inputSearch($event)"/>
+        </nz-input-group>
+        <nz-range-picker [(ngModel)]="dates" (ngModelChange)="dateChange($event)"></nz-range-picker>
+    </div>        
+    <button type="button" nz-button routerLink="/create-transaction">Create transaction</button>
+</div>
+<nz-table #basicTable [nzData]="listOfDisplayData">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Debit Account</th>
+        <th>Destination</th>
+        <th>Currency</th>
+        <th>Amount</th>
+        <th>Fee</th>
+        <th>Metadata</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let transaction of basicTable.data">
+        <td>{{transaction.id}}</td>
+        <td>{{transaction.date.toLocaleString()}}</td>
+        <td>{{transaction.fromAccount}}</td>
+        <td>{{transaction.toAccount}}</td>
+        <td>{{transaction.currency}}</td>
+        <td>{{transaction.amount + ' ' + transaction.currency}}</td>
+        <td>
+            <i *ngIf="transaction.fee; else noFee"  nz-icon nzType="check" nzTheme="outline"></i>
+            <ng-template #noFee><i nz-icon nzType="close" nzTheme="outline"></i></ng-template>
+        </td>
+        <td><nz-tag *ngFor="let tag of transaction.metadata" nz-tooltip [nzTooltipTitle]="tag.value">{{tag.key}}</nz-tag></td>
+        <td>
+        <a (click)="deleteTransaction(transaction.id)"><i nz-icon nzType="delete" nzTheme="outline"></i></a>
+        </td>
+    </tr>
+    </tbody>
+</nz-table>

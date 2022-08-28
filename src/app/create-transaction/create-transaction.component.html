@@ -1,0 +1,54 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()" class="form-create">
+    <div class="form-title"><h3 nz-typography>Transaction Information</h3></div>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="fromAccount">Internal Account To Debit</nz-form-label>
+        <nz-form-control [nzSm]="18"  nzErrorTip="You need to select a debit account">
+            <nz-select formControlName="fromAccount" id="fromAccount"  >
+                <nz-option *ngFor="let account of fromAccounts" [nzValue]="account" [nzLabel]="account"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="amount">Amount</nz-form-label>
+        <nz-form-control id="amount-currency" [nzSm]="18"  nzErrorTip="Not a valid numerical value">
+            <input class="form-control" nz-input formControlName="amount" id="amount" type="number"/>            
+            <nz-select  class="form-control" formControlName="currency" id="currency">
+                <nz-option *ngFor="let currency of currencies" [nzValue]="currency" [nzLabel]="currency"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="fee">Fee paid by receiver</nz-form-label>
+        <nz-switch formControlName="fee" id="fee"></nz-switch>
+    </nz-form-item>    
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="toAccount">Destination</nz-form-label>
+        <nz-form-control [nzSm]="18"  nzErrorTip="Destination account required">
+            <nz-select formControlName="toAccount" id="toAccount">
+                <nz-option *ngFor="let account of toAccounts" [nzValue]="account" [nzLabel]="account"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="metadata-container">
+        <nz-form-label [nzSm]="6" class="label-meta">Metadata</nz-form-label>
+        <div formArrayName="metadata" nz-col [nzSm]="17" >
+            <ng-container *ngFor="let metadataForm of metadata.controls; let i = index">
+                <div class="metadata" [ngClass]="{'last-metaform': i === metadata.controls.length - 1}" formGroupName="{{i}}">
+                    <nz-form-control nzErrorTip="Required!">
+                        <input placeholder="Key #{{i + 1}}" class="form-control" nz-input formControlName="key" class="key"/>
+                    </nz-form-control>
+                    <nz-form-control  nzErrorTip="Required!">
+                        <input placeholder="Value #{{i + 1}}" class="form-control" nz-input formControlName="value" class="value"/>
+                    </nz-form-control>
+                    <button nz-button type="button" [disabled]="i === metadata.controls.length - 1 && (metadata.controls[i].get('key')?.value === '' || metadata.controls[i].get('value')?.value === '')" (click)="deleteMetadata(i)">
+                        <i nz-icon nzType="delete" nzTheme="outline"></i>
+                    </button>
+                </div>
+            </ng-container>
+        </div>
+    </nz-form-item>
+    <div class="form-footer">
+        <button type="button" nz-button routerLink="/list-transactions">Cancel</button>
+        <button type="submit" nz-button nzType="primary" [disabled]="validateForm.invalid" (click)="submitForm()">Create transaction</button>
+    </div>
+</form>

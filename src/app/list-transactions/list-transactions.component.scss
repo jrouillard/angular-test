@@ -1,0 +1,18 @@
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    .table-filters {
+        display: flex;
+        margin-bottom: 8px;
+    
+        .search-box {
+            width: 188px;
+            display: block;
+            margin-right: 15px;
+        }
+    }
+}
+
+nz-tag {
+    cursor: pointer;
+}

@@ -1,0 +1,27 @@
+.app-title {
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.ant-layout {
+    min-height: 100%;
+}
+
+[nz-menu] {
+    line-height: 64px;
+}
+
+nz-content {
+    padding: 0 50px;
+    flex: 1;
+}
+
+nz-footer {
+    text-align: center;
+}
+
+.inner-content {
+    padding: 24px;
+    min-height: 280px;
+}

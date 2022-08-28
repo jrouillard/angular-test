@@ -1,0 +1,52 @@
+.form-create {
+    width:  700px;
+    margin: auto;
+
+    .form-title {
+        margin: 25px 0 40px 0;
+    }
+
+    #amount-currency {
+        .form-control {
+            width: 100px;
+        }
+    }
+
+    #currency {
+        margin-left: -1px;
+    }
+    .metadata-container {
+        margin-bottom: 24px;
+        .metadata {
+            display: flex;
+            flex-direction: row;
+            height: 68px;
+            width: 100%;
+            padding: 12px 0;
+            &.last-metaform {
+                height: 56px;
+                background-color: #e3e3e37d;
+            }
+            .key,.value {
+                margin-right: 5px;
+                flex-grow: 1;
+                width: auto;
+            }
+        }
+    }
+    .label-meta {
+        padding: 12px 0;
+    }
+
+    .form-footer {
+        text-align: right;
+        button {
+            margin-right: 15px;
+        }
+    }
+}
+
+.ant-form-horizontal .ant-form-item-label {
+    text-align: left;
+    margin-right: 25px;
+}
