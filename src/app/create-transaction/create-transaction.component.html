@@ -1,4 +1,4 @@
-<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()" class="form-create">
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()" id="form-create">
     <div class="form-title"><h3 nz-typography>Transaction Information</h3></div>
     <nz-form-item>
         <nz-form-label [nzSm]="6" nzFor="fromAccount">Internal Account To Debit</nz-form-label>
@@ -31,7 +31,7 @@
     </nz-form-item>
     <nz-form-item class="metadata-container">
         <nz-form-label [nzSm]="6" class="label-meta">Metadata</nz-form-label>
-        <div formArrayName="metadata" nz-col [nzSm]="17" >
+        <div formArrayName="metadata" nz-col [nzSm]="17">
             <ng-container *ngFor="let metadataForm of metadata.controls; let i = index">
                 <div class="metadata" [ngClass]="{'last-metaform': i === metadata.controls.length - 1}" formGroupName="{{i}}">
                     <nz-form-control nzErrorTip="Required!">

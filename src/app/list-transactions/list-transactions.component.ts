@@ -38,7 +38,7 @@ export class ListTransactionsComponent implements OnInit, OnDestroy {
    * fetch the transactions from the local storage
    * For this app, every key in the local storage is treated as a transaction
    */
-  private fetchTransactions() {
+  fetchTransactions() {
     // clear old transactions
     this.listOfData = [];
     const items = {...localStorage};
@@ -80,7 +80,7 @@ export class ListTransactionsComponent implements OnInit, OnDestroy {
   /**
    * filter listOfData on the query and selected dates
    */
-  private filter() {
+  filter() {
     this.listOfDisplayData = this.listOfData.filter((item: Transaction) => {
       let found = true;
       if (this.query) {

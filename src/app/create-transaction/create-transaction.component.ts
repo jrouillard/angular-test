@@ -16,9 +16,10 @@ export class CreateTransactionComponent implements OnInit, OnDestroy {
   validateForm!: FormGroup;
   lastMetaForm!: FormGroup;
   private lastMetaFormSubscription?: Subscription;
+  date?: Date;
   
   constructor(
-    private fb: FormBuilder, 
+    public fb: FormBuilder, 
     private router: Router
   ) {}
 
@@ -53,7 +54,7 @@ export class CreateTransactionComponent implements OnInit, OnDestroy {
    * if the key and value is set, unsubscribe, create a new last meta data line
    * only the last line can create a new line
    */
-  lastMetaFormSubscribe() {
+  private lastMetaFormSubscribe() {
     this.lastMetaFormSubscription = this.lastMetaForm.valueChanges.subscribe(_ => {
       if (this.lastMetaForm.valid === true && this.lastMetaForm.get('key')?.value !== '' && this.lastMetaForm.get('value')?.value !== '') {
         this.lastMetaFormSubscription?.unsubscribe();
@@ -80,11 +81,13 @@ export class CreateTransactionComponent implements OnInit, OnDestroy {
    * @param formValue 
    * @returns 
    */
-  private createTransaction(formValue: any): Transaction {
+  createTransaction(formValue: any): Transaction {
     const transaction = formValue;
     // we dont save the last metada line as it is either empty or not valid
     transaction.metadata.pop();
-    transaction.date = new Date();
+    // testing purposes
+    this.date = new Date();
+    transaction.date = this.date;
     // increment on the highest id
     transaction.id = getHighestId() + 1;
     return transaction as Transaction;
@@ -113,8 +116,8 @@ export class CreateTransactionComponent implements OnInit, OnDestroy {
     this.metadata.controls.forEach(control => control.get('value')?.setValidators(Validators.required));
     if (this.metadata.controls.length > 1) {
       // the last meta data line has no validators
-      this.lastMetaForm.get('key')?.clearValidators();
-      this.lastMetaForm.get('value')?.clearValidators();
+     this.metadata.controls[this.metadata.controls.length - 1].get('key')?.clearValidators();
+     this.metadata.controls[this.metadata.controls.length - 1].get('value')?.clearValidators();
     }
     this.metadata.controls.forEach(control => control.get('key')?.updateValueAndValidity());
     this.metadata.controls.forEach(control => control.get('value')?.updateValueAndValidity());
